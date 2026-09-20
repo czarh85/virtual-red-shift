@@ -1,12 +1,17 @@
-# VVVVVV Red Shift -- project page
+# Virtual Red Shift -- project page
 
 This repository holds **one web page** and nothing else: the public page for an
 unofficial Virtual Boy port of VVVVVV.
 
 It contains no ROM, no game assets and no source code. The port itself is not public.
 
-VVVVVV is copyright (c) 2010-2020 Terry Cavanagh. Music by Magnus Palsson.
-This project is an unofficial modified version built from the published VVVVVV source
-code. It is non-commercial, and it is not affiliated with or endorsed by its authors.
+VVVVVV is copyright (c) 2010-2020 Terry Cavanagh. Music by Magnus Palsson, not included
+in this port. This project is an unofficial modified version built from the published
+VVVVVV source code. It is non-commercial, and it is not affiliated with or endorsed by
+its authors. Virtual Boy is a trademark of Nintendo; this project is not affiliated with
+or endorsed by Nintendo.
 
-Page: https://czarh85.github.io/vvvvvv-red-shift/
+If you hold rights in anything shown on the page and want it changed or taken down, open
+an issue here. No justification is needed.
+
+Page: https://czarh85.github.io/virtual-red-shift/
