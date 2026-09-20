@@ -11,7 +11,8 @@ VVVVVV source code. It is non-commercial, and it is not affiliated with or endor
 its authors. Virtual Boy is a trademark of Nintendo; this project is not affiliated with
 or endorsed by Nintendo.
 
-If you hold rights in anything shown on the page and want it changed or taken down, open
-an issue here. No justification is needed.
+If you hold rights in anything shown on the page and want it changed or taken down, it
+will be done, without discussion. The quickest route is a reply in the Planet Virtual Boy
+thread where this page is announced.
 
 Page: https://czarh85.github.io/virtual-red-shift/
