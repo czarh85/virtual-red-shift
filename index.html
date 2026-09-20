@@ -78,6 +78,7 @@
            font-size:13.5px;line-height:1.7}
   .rapport .l{color:var(--r2);display:inline-block;min-width:8.5em}
 
+  .petit{font-size:12.5px;color:var(--sourd)}
   .note{font-size:12.5px;color:var(--sourd);border-left:2px solid var(--trait);
         padding-left:14px;margin:26px 0;max-width:64ch}
 
@@ -165,7 +166,7 @@ The honest ones matter more than the flattering ones.</p>
     <tr><td>Story scenes</td><td class="n">9 / 157</td><td class="s"><b>in ROM, mostly not armed</b> &mdash; 110 have no trigger the game can reach</td></tr>
     <tr><td>Script commands played</td><td class="n">79 %</td><td class="s">3230 of 4054; the rest are named no-ops, counted</td></tr>
     <tr><td>Sound effects</td><td class="n">18 / 28</td><td class="s">ten have no caller in the port</td></tr>
-    <tr><td>Music</td><td class="n">title only</td><td class="s">tracker, on the VSU. Full soundtrack needs an MP3 cart</td></tr>
+    <tr><td>Music</td><td class="n">title only</td><td class="s">a tracker theme on the VSU. The full soundtrack is waiting on ESSound</td></tr>
     <tr><td>ROM</td><td class="n">62.6 %</td><td class="s">1 313 492 of 2 097 152 bytes</td></tr>
   </tbody>
 </table>
@@ -200,10 +201,21 @@ data, never what the display does. <b>The Tower has never been seen drawing.</b>
 </div>
 
 <div class="appel">
-  <h3>3. If you own an MP3-capable cart</h3>
-  <p>The 16&nbsp;Mbit build plays the title theme on the sound unit. The full soundtrack
-  needs a cartridge that can stream audio. If you have one and would try a build on it,
-  that unlocks a part of the game nobody has heard.</p>
+  <h3>3. If you have a MrCart&nbsp;128 on order</h3>
+  <p>Today the build plays a tracker title theme on the VSU, and that is all the ROM can
+  afford: the whole game lives in 2&nbsp;MB, and a soundtrack does not fit in what is
+  left. <b>ESSound changes the problem rather than the budget</b> &mdash; it streams MP3
+  music and WAV effects in stereo from the microSD card, through the Virtual Boy's
+  expansion address space, alongside the native sound unit. The music stops competing
+  with the game for ROM, because it is no longer in the ROM.</p>
+  <p>That is what this port intends to target, and it is the reason the audio path is
+  already a build-time choice rather than a hard-coded track. <b>Nothing is written
+  against ESSound yet</b> &mdash; the hardware is not in hand &mdash; so treat this as an
+  intention, not a feature. If you have one on order and would run an ESSound build on
+  it when the time comes, say so: that is the part of the game nobody has heard.</p>
+  <p class="petit">The cart is <a href="https://www.mrcart.info/">MrCart&nbsp;128</a> by
+  Mr&nbsp;Flower &mdash; 128&nbsp;Mbit, and the first Virtual Boy cartridge with an audio
+  path of its own.</p>
 </div>
 
 <div class="ou">
