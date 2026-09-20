@@ -169,6 +169,30 @@ for this page &mdash; the licence requires it, and it belongs there.</figcaption
 each one names its room in the top-left corner. In a normal playthrough that label is not
 there &mdash; the room code in the right margin is.</p>
 
+<h2>Where the depth goes</h2>
+<p class="sub">None of it shows in a single-eye capture. Only a console can judge it.</p>
+
+<p><b>The playfield sits on the glass.</b> Floor, walls, spikes, platforms and you are all
+at zero disparity: depth is spent around what you touch, never on it.</p>
+
+<p><b>Behind it, the room is a box</b> &mdash; a near backdrop 4&nbsp;px deep, a far one
+stepping back by zone, 6&nbsp;px in the lab to 14&nbsp;px in open space. An opaque mask
+behind every solid tile shows it only through empty air. Not wallpaper: a cut-out
+with something behind it.</p>
+
+<p><b>A gravity line makes the box breathe.</b> Backdrop and walls step back one level
+and return on a ramp &mdash; triggered by the line, not by every flip, so it stays an
+event.</p>
+
+<p><b>In front, only what matters.</b> What you collect floats 6&nbsp;px out of the screen;
+what kills you, 2&nbsp;px; checkpoints sit 2&nbsp;px into the wall. Draw order follows
+parallax strictly, checked at build time.</p>
+
+<p>The game spans 22&nbsp;px against a 25&nbsp;px comfort ceiling; every depth
+change is a ramp, never a jump. <b>Two ideas were already rejected on hardware</b>: spikes
+pushed 4&nbsp;px out &mdash; against a wall they put the eyes in disagreement &mdash; and
+enemies at 4&nbsp;px, brought back to 2.</p>
+
 <h2>Where it actually stands</h2>
 <p class="sub">Every number here is measured by a tool in the repository, not estimated.
 The honest ones matter more than the flattering ones.</p>
@@ -234,7 +258,8 @@ hiding something the cartridge says out loud.</p>
   <p>Stereoscopic depth cannot be judged on a screenshot, and this port has already had two
   depth ideas rejected by the only person who played it on a real console. If something
   hurts your eyes, or reads flat, or flickers &mdash; that is a finding, and it is one no
-  tool in the repository can make.</p>
+  tool in the repository can make. <b>Where the depth goes</b>, above, says what to look
+  at.</p>
 </div>
 
 <div class="appel">
