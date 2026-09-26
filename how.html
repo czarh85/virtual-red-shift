@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="How Virtual Red Shift, a Virtual Boy port of VVVVVV, was made: counted from the git history and the session logs.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="How it's made -- Virtual Red Shift">
+<meta property="og:description" content="Built from Terry Cavanagh's source and checked against it: the method and the record, counted, not estimated.">
+<meta property="og:url" content="https://czarh85.github.io/virtual-red-shift/how.html">
+<meta property="og:image" content="https://czarh85.github.io/virtual-red-shift/beta/img/news/x3/title-menu.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='14'>&#128308;</text></svg>">
+<style>
+  :root{color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  body{margin:0}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<title>How it's made -- Virtual Red Shift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --nuit:#080000; --nuit-2:#120303; --trait:#3d0f0e;
+    --r1:#7a1515; --r2:#c42020; --r3:#ff3b30;
+    --pale:#ffc9c4; --sourd:#a8706d;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--nuit)}
+  body{
+    margin:0;font-family:var(--mono);color:var(--pale);font-size:15px;line-height:1.65;
+    padding-block:0 72px;padding-left:16px;padding-right:16px;
+    background:radial-gradient(1200px 520px at 50% -200px,#2c0808 0%,rgba(8,0,0,0) 72%),var(--nuit);
+  }
+  .wrap{max-width:860px;margin:0 auto}
+
+  header{padding-block:28px 30px}
+  .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--r2);margin:0 0 18px}
+  h1{font-size:clamp(30px,7vw,52px);line-height:1.04;margin:0 0 18px;color:var(--r3);
+     font-weight:700;letter-spacing:-.015em;text-wrap:balance}
+  .accroche{font-size:clamp(17px,2.6vw,20px);color:var(--pale);margin:0;max-width:60ch}
+  .accroche b{color:var(--r3);font-weight:600}
+
+  h2{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--r3);
+     font-weight:700;margin:56px 0 4px;padding-bottom:10px;border-bottom:1px solid var(--trait)}
+  .sub{font-size:13px;color:var(--sourd);margin:12px 0 26px;max-width:64ch}
+  p{max-width:64ch}
+
+  figure{margin:0 0 30px}
+  figure img{display:block;width:100%;max-width:100%;height:auto;
+             image-rendering:pixelated;border:1px solid var(--trait);background:#000}
+  figcaption{font-size:12.5px;color:var(--sourd);margin-top:9px}
+  figcaption b{color:var(--pale);font-weight:600}
+
+  .duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-bottom:30px}
+  .duo figure{margin:0}
+
+  .tableau{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:380px}
+  th,td{text-align:left;padding:9px 14px 9px 0;border-bottom:1px solid var(--trait);vertical-align:top}
+  th{color:var(--r2);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  td.n{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--r3);font-weight:600}
+  td.s{color:var(--sourd)}
+
+  ul{padding-left:20px;margin:0 0 18px;display:grid;gap:10px;max-width:64ch}
+  li b{color:var(--pale);font-weight:600}
+  code{background:var(--nuit-2);border:1px solid var(--trait);padding:1px 6px;color:var(--r3);font-size:.92em}
+
+  .appel{border-left:3px solid var(--r3);background:var(--nuit-2);padding:20px 22px;margin:28px 0}
+  .appel h3{margin:0 0 12px;font-size:16px;color:var(--r3)}
+  .appel p{margin:0 0 12px}
+  .appel p:last-child{margin:0}
+
+  .rapport{background:var(--nuit-2);border:1px solid var(--trait);padding:16px 18px;margin:20px 0;
+           font-size:13.5px;line-height:1.7}
+  .rapport .l{color:var(--r2);display:inline-block;min-width:8.5em}
+
+  .petit{font-size:12.5px;color:var(--sourd)}
+  .note{font-size:12.5px;color:var(--sourd);border-left:2px solid var(--trait);
+        padding-left:14px;margin:26px 0;max-width:64ch}
+
+  a{color:var(--r3);text-decoration-color:var(--r1);text-underline-offset:3px}
+  a:hover{text-decoration-color:var(--r3)}
+  a:focus-visible{outline:2px solid var(--r3);outline-offset:3px}
+
+  .ou{border:1px solid var(--r1);background:var(--nuit-2);padding:20px 22px;margin:30px 0}
+  .ou h3{margin:0 0 10px;font-size:16px;color:var(--r3)}
+  .ou p{margin:0 0 10px}
+  .ou p:last-child{margin:0}
+
+  .source{border-top:1px solid var(--trait);border-bottom:1px solid var(--trait);
+          padding:22px 0;margin:34px 0 0}
+  .source p{margin:0 0 12px}
+  .source p:last-child{margin:0}
+  .source b{color:var(--pale);font-weight:600}
+
+  footer{margin-top:62px;padding-top:22px;border-top:1px solid var(--trait);
+         font-size:12px;color:var(--sourd);line-height:1.85}
+  footer b{color:var(--pale);font-weight:600}
+
+  /* The shared menu bar: the same values as the beta style sheet, one fixed width centred on the screen. */
+  header.bandeau{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;
+    gap:.5rem 1.5rem;padding:1.25rem 0;border-bottom:1px solid #3a0a0a;
+    width:min(calc(75rem - 32px),calc(100vw - 32px));position:relative;left:50%;
+    transform:translateX(-50%);
+    font:1rem/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;color:#f2d6d6}
+  .bandeau a{color:#ff2a2a;text-decoration-color:currentColor;text-underline-offset:auto}
+  .bandeau a:focus-visible{outline:2px solid #ff2a2a;outline-offset:2px}
+  .bandeau .marque{margin:0;max-width:none;font-weight:700;letter-spacing:.12em}
+  .bandeau .marque a{text-decoration:none}
+  .bandeau .marque span{color:#a86060;font-weight:400;letter-spacing:0;margin-left:.4rem}
+  .bandeau nav a{margin-right:1rem}
+  .bandeau nav a:last-child{margin-right:0}
+  .bandeau nav a[aria-current]{color:#f2d6d6;text-decoration:none}
+</style>
+<style>
+  .releve{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:22px 0 10px}
+  .releve div{background:var(--nuit-2);border:1px solid var(--trait);padding:14px 16px}
+  .releve b{display:block;font-size:24px;color:var(--r3);font-variant-numeric:tabular-nums}
+  .releve span{font-size:12px;color:var(--sourd)}
+  .role{border-left:3px solid var(--r1);padding:4px 0 4px 16px;margin:0 0 18px}
+  .role h3{margin:0 0 4px;font-size:15px;color:var(--r3)}
+  .role p{margin:0}
+  .role .l{color:var(--sourd);font-size:12px}
+  .boucle svg{display:block;width:100%;height:auto;max-width:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="bandeau">
+<p class="marque"><a href="beta/index.html">VIRTUAL RED SHIFT</a> <span>private beta</span></p>
+<nav><a href="beta/news.html">News</a> <a href="./">Project</a> <a href="how.html" aria-current="page">How it's made</a> <a href="https://www.virtual-boy.com/forums/t/beta-release-vvvvvv-red-shift/">Forum</a></nav>
+</header>
+
+<header>
+  <p class="eyebrow">Virtual Red Shift &middot; how it's made</p>
+  <h1>Counted, not estimated</h1>
+  <p class="accroche">This port was built with an AI coding assistant. That invites an
+  assumption: that someone typed a prompt and the game appeared. This page is the record
+  of what happened instead, read from the git history and the session logs by a script
+  that runs every time the site is rebuilt.</p>
+</header>
+
+<h2 id="source">Built from Terry Cavanagh's source</h2>
+<p>VVVVVV is Terry Cavanagh's game. In 2020 he published its source code "for others to
+learn from, to inspire new work". This port exists because of that: it reads the game's
+logic from that source -- his game, as carried to C++ by Simon Roth and to SDL2 by Ethan
+Lee -- and takes his level data -- the room layouts, where
+every entity stands, the text of every scene. The rooms you play are his rooms.</p>
+<p>What it does not take: the art, the music and the sound, which are not part of the
+published source and stay his and Magnus P&aring;lsson's. Every graphic is redrawn for a
+384 by 224 screen in four shades of red; the port plays sixteen original chiptune tracks.
+The Virtual Boy adds one thing the original never had: depth.</p>
+<p class="petit">VVVVVV is still for sale at
+<a href="https://thelettervsixtim.es/">thelettervsixtim.es</a>, with the art and the
+soundtrack this port does not have.</p>
+
+<h2 id="fidelity">Checked against the original</h2>
+<p>The original runs its logic at 29.41 frames per second; the Virtual Boy runs at
+50, so speeds, accelerations and delays are converted from the original values in 8.8
+fixed point. 28 purpose-built checks compare the port with the published source; on
+2026-09-26, 26 passed and 2 failed (an epilogue token still drawn with a placeholder, and
+one final-level announcement). What the passing checks establish:</p>
+<ul>
+  <li><b>The player's collision box</b> (12 by 21 pixels) and walking-animation cadence are
+  read from the original source and match.</li>
+  <li><b>Gravity, terminal fall speed, vertical friction and top running speed</b> are the
+  original values converted; the worst rounding is 0.64 %, and a 240-pixel fall drifts by
+  0.07 of a pixel. <b>Walking acceleration and stopping do not yet follow the original's
+  model</b>: the port starts and stops faster.</li>
+  <li><b>All 418 room layouts</b> of the five zones come from the level data, and no room's
+  collision differs from the original.</li>
+  <li><b>163 moving enemies and platforms</b>, simulated over 1,500 original frames, stay
+  within one step of the original paths; the 20 wrap-around rooms match frame by frame.</li>
+  <li><b>The 204 checkpoints</b> respawn at the original spot and orientation; the 16
+  teleport tokens and the 35 scripted room jumps lead where the original sends them.</li>
+  <li><b>The Super Gravitron's 27 wave states</b> are transcribed with the original delays
+  and spawns; about one spawn in twenty is dropped for lack of sprite slots.</li>
+  <li><b>All 158 scripts</b> and the original's 473 dialogue boxes are converted; 47 scripts
+  play in the game so far, and the crew conversations cannot be started yet.</li>
+  <li><b>Death timing</b>, and the trinket, save and ending texts, come from the original,
+  letter by letter.</li>
+</ul>
+<p class="petit">What these checks do not do: they read data and code, not the game
+running. That part is the tester's, below, and the console's.</p>
+
+<h2 id="record">The record</h2>
+<p class="sub">Measured on 2026-09-26, by the rules written in the measuring script.</p>
+<div class="releve">
+  <div><b>1,228</b><span>commits, 2026-09-16 to 2026-09-26 (11 days)</span></div>
+  <div><b>186</b><span>prompts written by a person</span></div>
+  <div><b>128 h</b><span>of session time, 66 h of it the loop working alone</span></div>
+  <div><b>41,481</b><span>tool calls by the assistant</span></div>
+  <div><b>560</b><span>sub-agents launched</span></div>
+  <div><b>23</b><span>ROMs written to a real cartridge</span></div>
+</div>
+<p>These sessions ran next to other projects, so the logs are mixed. Nothing is guessed: a
+command counts for the port only when it ran in the port's folder or named its files, and
+a prompt only when the work it started did. Session time is the sum of the gaps shorter
+than ten minutes between those events, watched or not; the hours more than an hour after a
+person's last message are the loop working alone.</p>
+
+<h2 id="work">Where the work went</h2>
+<p>Every program the assistant ran for the port, by what it was. These are floors: a run
+that names no project is not counted.</p>
+<div class="tableau">
+<table>
+  <thead><tr><th>Programs run</th><th>Count</th><th>What they are</th></tr></thead>
+  <tbody>
+    <tr><td>Verification</td><td class="n">4,596</td><td class="s">audits, lint, guards, self-tests</td></tr>
+    <tr><td>Auto-player</td><td class="n">520</td><td class="s">the game played minimised, no keyboard</td></tr>
+    <tr><td>Keyboard sessions</td><td class="n">361</td><td class="s">the game played by scripted keys</td></tr>
+    <tr><td>Builds</td><td class="n">818</td><td class="s">compiling the ROM</td></tr>
+    <tr><td>Asset generation</td><td class="n">1,109</td><td class="s">rooms, scenes, tiles, music emitted from data</td></tr>
+    <tr><td>Flashing</td><td class="n">30</td><td class="s">sending a ROM to the cartridge</td></tr>
+    <tr><td>Version control</td><td class="n">10,436</td><td class="s"></td></tr>
+  </tbody>
+</table>
+</div>
+<p>For every build, about 7 programs checked the game: audits, auto-player runs and
+keyboard sessions together. In git, more commits touch the checks (417) than
+the game itself (369).</p>
+
+<h2 id="roles">Six roles</h2>
+<p>The assistant worked from six written briefs, one per role, 3,972 lines in
+all. Their content stays private.</p>
+<div class="tableau">
+<table>
+  <thead><tr><th>Role</th><th>Lines</th></tr></thead>
+  <tbody>
+    <tr><td>Architect</td><td class="n">1,408</td></tr>
+    <tr><td>Coder</td><td class="n">890</td></tr>
+    <tr><td>Tester</td><td class="n">399</td></tr>
+    <tr><td>Loop</td><td class="n">1,047</td></tr>
+    <tr><td>Build</td><td class="n">85</td></tr>
+    <tr><td>Flash</td><td class="n">143</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="tester">The tester at work</h2>
+<p>The game is played by an automatic player: an emulator started minimised, with no
+keyboard and no window focus, told which room to start in and how many frames to play,
+writing what happened to its save memory. Several run side by side, faster than real
+time.</p>
+<div class="releve">
+  <div><b>520</b><span>auto-player runs launched</span></div>
+  <div><b>1,718,335</b><span>frames asked for on the command line, at least</span></div>
+  <div><b>361</b><span>keyboard sessions</span></div>
+</div>
+<p>These are floors: the long runs of the nights went to the background, and a run does
+not always name its length. Every room of the game prints a four-character code, so a run
+-- or a tester -- can report exactly where something broke.</p>
+
+<h2 id="loop">The loop, in one picture</h2>
+<figure class="boucle">
+<svg viewBox="0 0 760 170" role="img" aria-labelledby="boucle-titre">
+<title id="boucle-titre">Plan, code, build, test, verdict, cartridge: the loop and its counts</title>
+<g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">
+  <g fill="#120303" stroke="#7a1515">
+    <rect x="4" y="40" width="104" height="54"/><rect x="134" y="40" width="104" height="54"/>
+    <rect x="264" y="40" width="104" height="54"/><rect x="394" y="40" width="104" height="54"/>
+    <rect x="524" y="40" width="104" height="54"/><rect x="654" y="40" width="102" height="54"/>
+  </g>
+  <g fill="#ff3b30" font-weight="600">
+    <text x="56" y="64">plan</text><text x="186" y="64">code</text><text x="316" y="64">build</text>
+    <text x="446" y="64">test</text><text x="576" y="64">verdict</text><text x="705" y="64">cartridge</text>
+  </g>
+  <g fill="#a8706d" font-size="11">
+    <text x="56" y="82">163 rewrites</text><text x="186" y="82">369 commits</text>
+    <text x="316" y="82">818 builds</text><text x="446" y="82">5,477 checks</text>
+    <text x="576" y="82">32 passed</text><text x="705" y="82">23 written</text>
+  </g>
+  <g stroke="#c42020" fill="none" stroke-width="1.5">
+    <path d="M108 67h26M238 67h26M368 67h26M498 67h26M628 67h26"/>
+    <path d="M576 94v34H56V94"/>
+  </g>
+  <text x="316" y="146" fill="#a8706d" font-size="11">a failed test sends the work back to the plan</text>
+</g>
+</svg>
+<figcaption>Counts from the records on this page.</figcaption>
+</figure>
+
+<h2 id="gate">The gate</h2>
+<p>The plan lives in one file, rewritten rather than appended: the history shows it
+replaced 163 times. The verdict lives in another, rewritten 37 times, and
+32 of those verdicts passed a build. The flashing script reads the verdict and
+refuses any ROM whose fingerprint it does not carry: of its 30 runs,
+23 wrote a ROM to the cartridge.</p>
+
+<h2 id="claims">What we will not claim</h2>
+<p>It is tempting to say this would have taken years by hand. Nobody built this port
+without the assistant, so there is no way to know, and a multiplier invented for a page
+like this would be exactly the kind of number it argues against. The level design, the
+characters, the story and the rules are Terry Cavanagh's; the port's job was to carry them
+to a different machine without losing them.</p>
+
+<h2 id="console">The part that is not automated</h2>
+<p>No emulator reproduces how a Virtual Boy feels: the red, the depth, whether a spike
+stays readable against a bright wall. So the ROM was written 23 times to a real
+cartridge, for a person to play on the console. Two depth ideas were dropped after that
+kind of test.</p>
+
+<p class="petit">To start your own: <a href="https://www.vuengine.dev/">VUEngine</a>,
+<a href="https://mednafen.github.io/">Mednafen</a>, the
+<a href="https://www.virtual-boy.com/forums/f/development/">Planet Virtual Boy development
+forum</a>, a flash cartridge. Questions about this port:
+<a href="https://www.virtual-boy.com/forums/t/beta-release-vvvvvv-red-shift/">the forum thread</a>.</p>
+
+<footer>
+  <b>VVVVVV</b> is copyright &copy; 2010&ndash;2020 Terry Cavanagh. Music by Magnus
+  P&aring;lsson &mdash; <b>not included in this port</b>. 2.0 C++ port by Simon Roth; 2.2
+  SDL2 port by Ethan Lee. Room names by Bennett Foddy.<br>This is an unofficial,
+  non-commercial modified version, not affiliated with or endorsed by the authors of
+  VVVVVV. Virtual Boy is a trademark of Nintendo.<br>
+  Figures measured on 2026-09-26 by the scripts that build this site.
+</footer>
+
+</div>
+</body>
+</html>
