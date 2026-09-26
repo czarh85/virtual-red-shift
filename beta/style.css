@@ -1,0 +1,71 @@
+/* Red Shift Beta -- feuille unique ; la CSP refuse tout style en ligne. */
+:root {
+  --fond: #0b0000;
+  --texte: #f2d6d6;
+  --rouge: #ff2a2a;
+  --sourd: #a86060;
+  --trait: #3a0a0a;
+}
+* { box-sizing: border-box; }
+html { background: var(--fond); }
+body {
+  margin: 0 auto;
+  max-width: 52rem;
+  padding: 0 16px 3rem;
+  background: var(--fond);
+  color: var(--texte);
+  font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+a { color: var(--rouge); }
+a:focus-visible { outline: 2px solid var(--rouge); outline-offset: 2px; }
+.bandeau {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .5rem 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--trait);
+}
+.marque { margin: 0; font-weight: 700; letter-spacing: .12em; }
+.marque a { text-decoration: none; }
+.marque span { color: var(--sourd); font-weight: 400; letter-spacing: 0; margin-left: .4rem; }
+nav a { margin-right: 1rem; }
+nav a:last-child { margin-right: 0; }
+h1 { color: var(--rouge); font-size: 1.6rem; line-height: 1.25; margin: 2rem 0 1rem; }
+h2 { color: var(--rouge); font-size: 1.1rem; margin: 1.75rem 0 .5rem; }
+li { margin: .35rem 0; }
+.etat, .aviser, .a-completer {
+  border-left: 3px solid var(--rouge);
+  padding: .5rem .9rem;
+  background: #1a0303;
+}
+.a-completer { font-family: ui-monospace, Consolas, monospace; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--trait); color: var(--sourd); font-size: .9rem; }
+label { display: block; margin-top: 1rem; font-weight: 700; }
+input[type=text], textarea { width: 100%; box-sizing: border-box; background: #120202; color: inherit; border: 1px solid var(--trait); padding: .4rem; font: inherit; }
+.aide { margin: .2rem 0; color: var(--sourd); font-size: .9rem; }
+.erreur { margin: .2rem 0; color: var(--rouge); min-height: 1em; }
+button { margin-top: 1rem; padding: .5rem 1rem; font: inherit; }
+.ticket { border-top: 1px solid var(--trait); margin-top: 1rem; }
+.ticket dd { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* NOUVELLES -- en tete de l'accueil, datees (note de version beta 1). */
+.nouvelles { border-bottom: 1px solid var(--trait); padding-bottom: 1rem; }
+.nouvelle h2 { margin-top: 1.25rem; }
+.date { color: var(--sourd); font-variant-numeric: tabular-nums; margin-right: .5rem; }
+.captures { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; margin: 1rem 0 2rem; }
+.captures figure { margin: 0; min-width: 0; }
+/* A LA LARGEUR DE L'ECRAN -- une capture remplit sa colonne, sans jamais depasser x2
+   (768 px), ni x3 (1152 px) quand la fenetre le permet : sur un telephone elle tient dans
+   l'ecran, sans defilement. Le clic ouvre la version x4. Pixels nets a toute taille. */
+.captures .defile { overflow: visible; }
+.captures a { display: block; max-width: 768px; margin: 0 auto; }
+.captures img { display: block; box-sizing: border-box; width: 100%; max-width: 100%; height: auto; image-rendering: crisp-edges; image-rendering: pixelated; border: 1px solid var(--trait); }
+.captures figcaption { text-align: center; color: var(--sourd); font-size: .9rem; margin-top: .4rem; }
+/* La page des nouvelles s'elargit pour ses captures ; le texte garde sa largeur de lecture. */
+.page-news { max-width: 75rem; }
+.page-news .nouvelle > p, .page-news .nouvelle > ul { max-width: 48rem; }
+@media (min-width: 1220px) {
+  .captures a { max-width: 1152px; }
+}
