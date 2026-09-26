@@ -37,7 +37,7 @@
   }
   .wrap{max-width:860px;margin:0 auto}
 
-  header{padding-block:56px 30px}
+  header{padding-block:28px 30px}
   .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--r2);margin:0 0 18px}
   h1{font-size:clamp(30px,7vw,52px);line-height:1.04;margin:0 0 18px;color:var(--r3);
      font-weight:700;letter-spacing:-.015em;text-wrap:balance}
@@ -100,10 +100,34 @@
   footer{margin-top:62px;padding-top:22px;border-top:1px solid var(--trait);
          font-size:12px;color:var(--sourd);line-height:1.85}
   footer b{color:var(--pale);font-weight:600}
+
+  /* LA BARRE COMMUNE (lot B2, 2026-09-26) -- valeurs RECOPIEES de RedShiftBeta/front/
+     style.css (.bandeau, .marque, nav a), pas imitees : la barre doit etre la meme au
+     pixel pres sur les trois pages. Largeur FIXE, centree sur l'ecran : celle de la page
+     beta la plus large (75rem moins deux gouttieres), pour que le menu ne saute pas d'une
+     page a l'autre. liens_audit (f) verifie qu'elle mene aux memes endroits. */
+  header.bandeau{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;
+    gap:.5rem 1.5rem;padding:1.25rem 0;border-bottom:1px solid #3a0a0a;
+    width:min(calc(75rem - 32px),calc(100vw - 32px));position:relative;left:50%;
+    transform:translateX(-50%);
+    font:1rem/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;color:#f2d6d6}
+  .bandeau a{color:#ff2a2a;text-decoration-color:currentColor;text-underline-offset:auto}
+  .bandeau a:focus-visible{outline:2px solid #ff2a2a;outline-offset:2px}
+  .bandeau .marque{margin:0;max-width:none;font-weight:700;letter-spacing:.12em}
+  .bandeau .marque a{text-decoration:none}
+  .bandeau .marque span{color:#a86060;font-weight:400;letter-spacing:0;margin-left:.4rem}
+  .bandeau nav a{margin-right:1rem}
+  .bandeau nav a:last-child{margin-right:0}
+  .bandeau nav a[aria-current]{color:#f2d6d6;text-decoration:none}
 </style>
 </head>
 <body>
 <div class="wrap">
+
+<header class="bandeau">
+<p class="marque"><a href="beta/index.html">VIRTUAL RED SHIFT</a> <span>private beta</span></p>
+<nav><a href="beta/news.html">News</a> <a href="./" aria-current="page">Project</a> <a href="https://www.virtual-boy.com/forums/t/beta-release-vvvvvv-red-shift/">Forum</a></nav>
+</header>
 
 <header>
   <p class="eyebrow">An unofficial Virtual Boy port of VVVVVV &middot; work in progress</p>
