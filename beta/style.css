@@ -38,6 +38,10 @@ a:focus-visible { outline: 2px solid var(--rouge); outline-offset: 2px; }
 .marque { margin: 0; font-weight: 700; letter-spacing: .12em; }
 .marque a { text-decoration: none; }
 .marque span { color: var(--sourd); font-weight: 400; letter-spacing: 0; margin-left: .4rem; }
+/* The other games of the player, after the tabs (tools/site/gabarit.py AUTRES, 2026-10-20). */
+.bandeau nav.jeux { padding-left: 1rem; border-left: 1px solid var(--trait); }
+.bandeau nav.jeux a { color: #d84a4a; }
+footer .autres { margin: .5rem 0 0; }
 nav a { margin-right: 1rem; }
 nav a:last-child { margin-right: 0; }
 /* La page ou l'on est se lit dans la barre ; meme regle recopiee dans la page du projet. */
