@@ -1,7 +1,7 @@
 # Virtual Red Shift -- project page
 
-This repository holds **web pages** and nothing else: the public page for an unofficial
-Virtual Boy port of VVVVVV, and the notes of its private beta under `beta/`.
+This repository holds **web pages** and one ROM: the public page for an unofficial
+Virtual Boy port of VVVVVV, the notes of its private beta under `beta/`, and the free demo.
 
 It contains no source code. Its one ROM is the free demo, `download/virtual-red-shift-demo.vb`.
 
