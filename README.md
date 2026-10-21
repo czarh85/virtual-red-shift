@@ -1,9 +1,9 @@
 # Virtual Red Shift -- project page
 
-This repository holds **web pages** and one ROM: the public page for an unofficial
-Virtual Boy port of VVVVVV, the notes of its private beta under `beta/`, and the free demo.
+This repository holds **web pages** and nothing else: the public page for an unofficial
+Virtual Boy port of VVVVVV, and the notes of its private beta under `beta/`.
 
-It contains no source code. Its one ROM is the free demo, `download/virtual-red-shift-demo.vb`.
+It contains no ROM, no game assets and no source code. The port itself is not public.
 
 VVVVVV is copyright (c) 2010-2020 Terry Cavanagh. Music by Magnus Palsson, not included
 in this port. This project is an unofficial modified version built from the published
