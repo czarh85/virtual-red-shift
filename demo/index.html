@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="The free demo of Virtual Red Shift, an unofficial Virtual Boy port of VVVVVV: the first level, the open world and Space Station 2. To join the closed beta, send a private message on Discord to @henzelince.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Virtual Red Shift -- the demo">
+<meta property="og:description" content="The free demo of Virtual Red Shift, an unofficial Virtual Boy port of VVVVVV: the first level, the open world and Space Station 2. To join the closed beta, send a private message on Discord to @henzelince.">
+<meta property="og:url" content="https://czarh85.github.io/virtual-red-shift/demo/">
+<meta property="og:image" content="https://czarh85.github.io/virtual-red-shift/demo/img/teaser.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='14'>&#128308;</text></svg>">
+<style>
+  :root{color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  body{margin:0}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<title>Demo - VIRTUAL RED SHIFT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --nuit:#080000; --nuit-2:#120303; --trait:#3d0f0e;
+    --r1:#7a1515; --r2:#c42020; --r3:#ff3b30;
+    --pale:#ffc9c4; --sourd:#a8706d;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--nuit)}
+  body{
+    margin:0;font-family:var(--mono);color:var(--pale);font-size:15px;line-height:1.65;
+    padding-block:0 72px;padding-left:16px;padding-right:16px;
+    background:radial-gradient(1200px 520px at 50% -200px,#2c0808 0%,rgba(8,0,0,0) 72%),var(--nuit);
+  }
+  .wrap{max-width:860px;margin:0 auto}
+
+  header{padding-block:28px 30px}
+  .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--r2);margin:0 0 18px}
+  h1{font-size:clamp(30px,7vw,52px);line-height:1.04;margin:0 0 18px;color:var(--r3);
+     font-weight:700;letter-spacing:-.015em;text-wrap:balance}
+  .accroche{font-size:clamp(17px,2.6vw,20px);color:var(--pale);margin:0;max-width:60ch}
+  .accroche b{color:var(--r3);font-weight:600}
+
+  h2{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--r3);
+     font-weight:700;margin:56px 0 4px;padding-bottom:10px;border-bottom:1px solid var(--trait)}
+  .sub{font-size:13px;color:var(--sourd);margin:12px 0 26px;max-width:64ch}
+  p{max-width:64ch}
+
+  figure{margin:0 0 30px}
+  figure img{display:block;width:100%;max-width:100%;height:auto;
+             image-rendering:pixelated;border:1px solid var(--trait);background:#000}
+  figcaption{font-size:12.5px;color:var(--sourd);margin-top:9px}
+  figcaption b{color:var(--pale);font-weight:600}
+
+  .duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-bottom:30px}
+  .duo figure{margin:0}
+
+  .tableau{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:380px}
+  th,td{text-align:left;padding:9px 14px 9px 0;border-bottom:1px solid var(--trait);vertical-align:top}
+  th{color:var(--r2);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  td.n{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--r3);font-weight:600}
+  td.s{color:var(--sourd)}
+
+  ul{padding-left:20px;margin:0 0 18px;display:grid;gap:10px;max-width:64ch}
+  li b{color:var(--pale);font-weight:600}
+  code{background:var(--nuit-2);border:1px solid var(--trait);padding:1px 6px;color:var(--r3);font-size:.92em}
+
+  .appel{border-left:3px solid var(--r3);background:var(--nuit-2);padding:20px 22px;margin:28px 0}
+  .appel h3{margin:0 0 12px;font-size:16px;color:var(--r3)}
+  .appel p{margin:0 0 12px}
+  .appel p:last-child{margin:0}
+
+  .rapport{background:var(--nuit-2);border:1px solid var(--trait);padding:16px 18px;margin:20px 0;
+           font-size:13.5px;line-height:1.7}
+  .rapport .l{color:var(--r2);display:inline-block;min-width:8.5em}
+
+  .petit{font-size:12.5px;color:var(--sourd)}
+  .note{font-size:12.5px;color:var(--sourd);border-left:2px solid var(--trait);
+        padding-left:14px;margin:26px 0;max-width:64ch}
+
+  a{color:var(--r3);text-decoration-color:var(--r1);text-underline-offset:3px}
+  a:hover{text-decoration-color:var(--r3)}
+  a:focus-visible{outline:2px solid var(--r3);outline-offset:3px}
+
+  .ou{border:1px solid var(--r1);background:var(--nuit-2);padding:20px 22px;margin:30px 0}
+  .ou h3{margin:0 0 10px;font-size:16px;color:var(--r3)}
+  .ou p{margin:0 0 10px}
+  .ou p:last-child{margin:0}
+
+  .source{border-top:1px solid var(--trait);border-bottom:1px solid var(--trait);
+          padding:22px 0;margin:34px 0 0}
+  .source p{margin:0 0 12px}
+  .source p:last-child{margin:0}
+  .source b{color:var(--pale);font-weight:600}
+
+  footer{margin-top:62px;padding-top:22px;border-top:1px solid var(--trait);
+         font-size:12px;color:var(--sourd);line-height:1.85}
+  footer b{color:var(--pale);font-weight:600}
+
+  /* The shared menu bar: the same values as the beta style sheet, one fixed width centred on the screen. */
+  header.bandeau{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;
+    gap:.5rem 1.5rem;padding:1.25rem 0;border-bottom:1px solid #3a0a0a;
+    width:min(calc(75rem - 32px),calc(100vw - 32px));position:relative;left:50%;
+    transform:translateX(-50%);
+    font:1rem/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;color:#f2d6d6}
+  .bandeau a{color:#ff2a2a;text-decoration-color:currentColor;text-underline-offset:auto}
+  .bandeau a:focus-visible{outline:2px solid #ff2a2a;outline-offset:2px}
+  .bandeau .marque{margin:0;max-width:none;font-weight:700;letter-spacing:.12em}
+  .bandeau .marque a{text-decoration:none}
+  .bandeau .marque span{color:#a86060;font-weight:400;letter-spacing:0;margin-left:.4rem}
+  .bandeau nav a{margin-right:1rem}
+  .bandeau nav a:last-child{margin-right:0}
+  .bandeau nav a[aria-current]{color:#f2d6d6;text-decoration:none}
+  /* The other games of the player after the tabs (AUTRES), a thin rule before them. */
+  .bandeau nav.jeux{padding-left:1rem;border-left:1px solid #3a0a0a}
+  .bandeau nav.jeux a{color:#d84a4a}
+  footer .autres{margin:10px 0 0}
+</style>
+<style>
+  .teaser{margin:8px 0 26px}
+  .teaser img{display:block;width:100%;height:auto;image-rendering:pixelated;border:1px solid var(--trait);background:#000}
+  .bouton{display:inline-block;padding:12px 22px;border:1px solid var(--r3);background:var(--nuit-2);
+          color:var(--r3);font-weight:700;letter-spacing:.06em;text-decoration:none}
+  .bouton:hover{background:#2a0606}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="bandeau">
+<p class="marque"><a href="../beta/index.html">VIRTUAL RED SHIFT</a> <span>closed beta</span></p>
+<nav><a href="../beta/news.html">News</a> <a href="../demo/" aria-current="page">Demo</a> <a href="../">Project</a> <a href="../how.html">How it's made</a> <a href="https://www.virtual-boy.com/forums/t/beta-release-vvvvvv-red-shift/">Forum</a></nav>
+<nav class="jeux" aria-label="Other Virtual Boy games"><a href="https://czarh85.github.io/red-panic/">Red Panic</a> <a href="https://czarh85.github.io/virtual-breakout/">Virtual Breakout</a></nav>
+</header>
+
+<figure class="teaser"><img src="img/teaser.gif" width="768" height="448" alt="The demo teaser, about 32 seconds, left eye: the crash, gravity flips over the spikes of Space Station 1, a teleporter to the ship and Level Complete, the ship, the open world under a distant ship, the conveyors of Space Station 2, the edge of the Laboratory in the full game, the way down to Vitellary and his rescue, then the title screen"></figure>
+
+<header>
+  <p class="eyebrow">Free demo &middot; version 0.1</p>
+  <h1>VIRTUAL RED SHIFT: the demo</h1>
+  <p class="accroche">The first level, the open world around the ship, and <b>Space Station 2</b>,
+  up to Vitellary's rescue.</p>
+</header>
+
+<p><a class="bouton" href="../download/virtual-red-shift-demo.vb" download>Download the demo</a></p>
+<p class="petit">virtual-red-shift-demo.vb (2 MB), for a Virtual Boy flash cartridge or an
+emulator. md5 e77255ff286df61c06bca14cd66db9dd.</p>
+<p>The Laboratory, the Warp Zone, the Tower and the Final Level are not in the demo.</p>
+
+<h2 id="controls">Controls</h2>
+<ul>
+  <li><b>Left D-pad:</b> walk.</li>
+  <li><b>A or B:</b> flip gravity.</li>
+  <li><b>START:</b> pause menu and map; teleport.</li>
+</ul>
+
+<h2 id="beta">The closed beta</h2>
+<p>To join the closed beta, send a private message on Discord to <b>@henzelince</b>.</p>
+
+<h2 id="licence">Licence</h2>
+<p>Based on the <a href="https://github.com/TerryCavanagh/VVVVVV">VVVVVV source code</a>, &copy; 2010-2020 Terry Cavanagh. This is a modified version,
+not the original game. Unofficial, non-commercial port, not for sale: if you paid for this, you were
+scammed.</p>
+<p>VVVVVV is a commercial game, with art and music this port does not have. Support its
+author: <a href="https://thelettervsixtim.es/">thelettervsixtim.es</a>.</p>
+<p>If the author of VVVVVV asks for this port to be withdrawn, it will be.</p>
+
+<footer>
+  Music by Magnus P&aring;lsson, <b>not included in this port</b>. 2.0 C++ port by Simon Roth;
+  2.2 SDL2 port by Ethan Lee. Room names by Bennett Foddy.
+  Built with <b>VUEngine</b>. Virtual Boy is a trademark of Nintendo; this project is not
+  affiliated with or endorsed by Nintendo or by the authors of VVVVVV.
+  <p class="autres"><b>Other Virtual Boy games:</b> <a href="https://czarh85.github.io/red-panic/">Red Panic</a>: an original game for the Virtual Boy, with a free demo. <a href="https://czarh85.github.io/virtual-breakout/">Virtual Breakout</a>: a stereoscopic brick-breaker, free to download.</p>
+</footer>
+
+</div>
+</body>
+</html>
